@@ -1,0 +1,58 @@
+{
+  "name": "filament-utils",
+  "displayName": "Filament Utils",
+  "description": "Filament Utils",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.82.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "make.resource",
+        "title": "Filament - Make Resource"
+      },
+      {
+        "command": "make.widget",
+        "title": "Filament - Make Widget"
+      },
+      {
+        "command": "make.custom.page",
+        "title": "Filament - Make Custom Page"
+      },
+      {
+        "command": "make.panel",
+        "title": "Filament - Make Panel"
+      },
+      {
+        "command": "make.theme",
+        "title": "Filament - Make Theme"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "pnpm run compile && pnpm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.82.0",
+    "@types/mocha": "^10.0.2",
+    "@types/node": "18.x",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
+    "eslint": "^8.50.0",
+    "glob": "^10.3.3",
+    "mocha": "^10.2.0",
+    "typescript": "^5.2.2",
+    "@vscode/test-electron": "^2.3.4"
+  }
+}
