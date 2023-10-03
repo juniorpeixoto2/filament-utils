@@ -37,16 +37,17 @@ export default async function widgetMake() {
     return;
   }
 
+  //@todo auto select widget type
   const widgetTypeName = await vscode.window.showQuickPick(
     [
       {
         label: "Custom",
         value: "",
       },
-      {
-        label: "Chart",
-        value: "--chart",
-      },
+      // {
+      //   label: "Chart",
+      //   value: "--chart",
+      // },
       {
         label: "Stats Overview",
         value: "--stats-overview",
@@ -73,19 +74,19 @@ export default async function widgetMake() {
         },
         {
           label: "Bubble chart ",
-          value: "--type=bubble",
+          value: "--typeChart=bubble",
         },
         {
           label: " Doughnut chart",
-          value: "--type=doughnut",
+          value: "--typeChart=doughnut",
         },
         {
           label: "Line chart",
-          value: "--type=line",
+          value: "--typeChart=line",
         },
         {
           label: "Pie chart",
-          value: "--type=pie",
+          value: "--typeChart=pie",
         },
       ],
       {
@@ -98,8 +99,6 @@ export default async function widgetMake() {
 
   let t = vscode.window.createTerminal();
   const command = `php artisan make:filament-widget ${widgetName} --resource=${resourceName} ${widgetType} --panel=${panelName}`;
-
-  console.log(command);
 
   t.sendText(command);
 }

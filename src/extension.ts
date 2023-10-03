@@ -29,17 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
     relationManagersMake();
   });
 
-  //@todo
   /*
-	
-	php artisan make:filament-relation-manager CategoryResource posts title
-	php artisan make:filament-relation-manager CategoryResource posts title --soft-deletes
-	php artisan make:filament-relation-manager CategoryResource posts title --attach
-	php artisan make:filament-relation-manager CategoryResource posts title --associate
-	php artisan make:filament-relation-manager CategoryResource posts title --view
-	php artisan make:filament-relation-manager CategoryResource posts title --soft-deletes
-	
-	
 	Snippets
 	protected static ?int $sort = 2;
 	protected static ?string $navigationIcon = 'heroicon-o-document-text';
