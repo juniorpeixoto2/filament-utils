@@ -25,16 +25,28 @@ export default async function widgetMake() {
     return;
   }
 
+  const panelName = await vscode.window.showInputBox({
+    placeHolder: "Panel Name",
+    prompt: "Panel Name to create",
+  });
+
+  if (panelName === "") {
+    vscode.window.showErrorMessage(
+      "A Panel Name is mandatory to execute this action"
+    );
+    return;
+  }
+
   const widgetTypeName = await vscode.window.showQuickPick(
     [
       {
         label: "Custom",
         value: "",
       },
-      // {
-      //   label: "Chart",
-      //   value: "--chart",
-      // },
+      {
+        label: "Chart",
+        value: "--chart",
+      },
       {
         label: "Stats Overview",
         value: "--stats-overview",
@@ -84,11 +96,10 @@ export default async function widgetMake() {
     widgetTypeChartValue = widgetTypeChart?.value;
   }
 
-  if (resourceName !== undefined) {
-    let t = vscode.window.createTerminal();
-    const command = `php artisan make:filament-page ${widgetName}`;
+  let t = vscode.window.createTerminal();
+  const command = `php artisan make:filament-widget ${widgetName} --resource=${resourceName} ${widgetType} --panel=${panelName}`;
 
-    t.sendText(command);
-    vscode.window.showInformationMessage(`Widget ${widgetName} Created!`);
-  }
+  console.log(command);
+
+  t.sendText(command);
 }

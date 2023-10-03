@@ -34,15 +34,15 @@ export default async function customPagesMake() {
     [
       {
         label: "Custom",
-        value: "",
+        value: "custom",
       },
       {
         label: "List",
-        value: "list",
+        value: "listRecords",
       },
       {
         label: "Create",
-        value: "create",
+        value: "createRecord",
       },
     ],
     {

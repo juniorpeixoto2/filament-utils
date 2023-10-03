@@ -5,10 +5,9 @@ import filamentMake from "./makers/filamentMake";
 import relationManagersMake from "./makers/relationManagersMake";
 
 export function activate(context: vscode.ExtensionContext) {
-  widgetMake();
-  customPagesMake();
-
-  vscode.commands.registerCommand("make.widget", async () => {});
+  vscode.commands.registerCommand("make.widget", async () => {
+    widgetMake();
+  });
 
   vscode.commands.registerCommand("make.custom.page", async () => {
     customPagesMake();
