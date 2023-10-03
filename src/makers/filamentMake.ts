@@ -10,7 +10,7 @@ export default async function filamentMake(inputName: string) {
 
   if (text === "") {
     vscode.window.showErrorMessage(
-      "A ${inputNameUpper} Name is mandatory to execute this action"
+      `A ${inputNameUpper} Name is mandatory to execute this action`
     );
     return;
   }

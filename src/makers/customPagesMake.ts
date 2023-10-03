@@ -1,24 +1,60 @@
 import * as vscode from "vscode";
 
-export default function customPagesMake() {
-  return vscode.commands.registerCommand("make.custom.pages", async () => {
-    const customPageName = await vscode.window.showInputBox({
-      placeHolder: "Custom Page Name",
-      prompt: "Enter the Custom Page Name",
-    });
-
-    if (customPageName === "") {
-      vscode.window.showErrorMessage(
-        "A Name is mandatory to execute this action"
-      );
-      return;
-    }
-
-    if (customPageName !== undefined) {
-      let t = vscode.window.createTerminal();
-      t.sendText(`php artisan make:filament-page ${customPageName}`);
-
-      vscode.window.showInformationMessage(`Page ${customPageName} Created!`);
-    }
+export default async function customPagesMake() {
+  const text = await vscode.window.showInputBox({
+    placeHolder: "Custom Page Name",
+    prompt: "Enter the Custom Page Name",
   });
+
+  if (text === "") {
+    vscode.window.showErrorMessage(
+      "A Name is mandatory to execute this action"
+    );
+    return;
+  }
+
+  const resourceName = await vscode.window.showInputBox({
+    placeHolder: "Resource Name",
+    prompt: "Create the page inside a resource? (Optional)",
+  });
+
+  const panelName = await vscode.window.showInputBox({
+    placeHolder: "Panel Name",
+    prompt: "Panel Name to create",
+  });
+
+  if (panelName === "") {
+    vscode.window.showErrorMessage(
+      "A Panel Name is mandatory to execute this action"
+    );
+    return;
+  }
+
+  const pageType = await vscode.window.showQuickPick(
+    [
+      {
+        label: "Custom",
+        value: "",
+      },
+      {
+        label: "List",
+        value: "list",
+      },
+      {
+        label: "Create",
+        value: "create",
+      },
+    ],
+    {
+      placeHolder: "Select Page Type",
+    }
+  );
+
+  if (text !== undefined) {
+    let t = vscode.window.createTerminal();
+    const command = `php artisan make:filament-page ${text}  --resource=${resourceName} --type=${pageType?.value} --panel=${panelName}`;
+
+    t.sendText(command);
+    vscode.window.showInformationMessage(`Page ${text} Created!`);
+  }
 }

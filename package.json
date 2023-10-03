@@ -32,6 +32,10 @@
       {
         "command": "make.theme",
         "title": "Filament - Make Theme"
+      },
+      {
+        "command": "make.relation.manager",
+        "title": "Filament - Make Relation Manager"
       }
     ]
   },

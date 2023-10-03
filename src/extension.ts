@@ -1,13 +1,18 @@
 import * as vscode from "vscode";
-import resourceMake from "./makers/resourceMake";
 import widgetMake from "./makers/widgetMake";
 import customPagesMake from "./makers/customPagesMake";
 import filamentMake from "./makers/filamentMake";
+import relationManagersMake from "./makers/relationManagersMake";
 
 export function activate(context: vscode.ExtensionContext) {
-  //   resourceMake();
   widgetMake();
   customPagesMake();
+
+  vscode.commands.registerCommand("make.widget", async () => {});
+
+  vscode.commands.registerCommand("make.custom.page", async () => {
+    customPagesMake();
+  });
 
   vscode.commands.registerCommand("make.resource", async () => {
     filamentMake("resource");
@@ -21,24 +26,12 @@ export function activate(context: vscode.ExtensionContext) {
     filamentMake("theme");
   });
 
+  vscode.commands.registerCommand("make.relation.manager", async () => {
+    relationManagersMake();
+  });
+
   //@todo
   /*
-
-//   php artisan make:filament-resource Patient
-
-//   php artisan make:filament-widget BlogPostsOverview
-  php artisan make:filament-widget LatestOrders --table
-  	// php artisan make:filament-widget PatientTypeOverview --stats-overview
-	// php artisan make:filament-widget TreatmentsChart --chart
-
-	// php artisan make:filament-page Settings
-	
-	// php artisan make:filament-theme
-	// php artisan make:filament-theme admin
-
-	// php artisan make:filament-panel app
-
-	php artisan make:filament-page SortUsers --resource=UserResource --type=custom
 	
 	php artisan make:filament-relation-manager CategoryResource posts title
 	php artisan make:filament-relation-manager CategoryResource posts title --soft-deletes
