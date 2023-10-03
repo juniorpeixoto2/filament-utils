@@ -15,16 +15,13 @@ export default async function filamentMake(inputName: string) {
     return;
   }
 
-  const panelName = await vscode.window.showInputBox({
-    placeHolder: "Panel Name",
-    prompt: "Panel Name to create",
+  let panelName = await vscode.window.showInputBox({
+    placeHolder: "Panel Name (Default: admin)",
+    prompt: "Enter the name of the panel for which it will be generated",
   });
 
   if (panelName === "") {
-    vscode.window.showErrorMessage(
-      "A Panel Name is mandatory to execute this action"
-    );
-    return;
+    panelName = "admin";
   }
 
   if (text !== undefined) {
