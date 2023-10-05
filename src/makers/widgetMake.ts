@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import execCmd from "../common";
 
 export default async function widgetMake() {
   const widgetName = await vscode.window.showInputBox({
@@ -6,7 +7,7 @@ export default async function widgetMake() {
     prompt: "Enter the Widget Name",
   });
 
-  if (widgetName === "") {
+  if (!widgetName) {
     vscode.window.showErrorMessage(
       "A Widget Name is mandatory to execute this action"
     );
@@ -23,15 +24,6 @@ export default async function widgetMake() {
       "A Resource Name is mandatory to execute this action"
     );
     return;
-  }
-
-  let panelName = await vscode.window.showInputBox({
-    placeHolder: "Panel Name (Default: admin)",
-    prompt: "Enter the name of the panel for which it will be generated",
-  });
-
-  if (panelName === "") {
-    panelName = "admin";
   }
 
   //@todo auto select widget type
@@ -61,6 +53,15 @@ export default async function widgetMake() {
 
   const widgetType = widgetTypeName?.value;
   let widgetTypeChartValue;
+
+  let panelName = await vscode.window.showInputBox({
+    placeHolder: "Panel Name (Default: admin)",
+    prompt: "Enter the name of the panel for which it will be generated",
+  });
+
+  if (panelName === "") {
+    panelName = "admin";
+  }
 
   if (widgetType === "--chart") {
     const widgetTypeChart = await vscode.window.showQuickPick(
@@ -94,8 +95,6 @@ export default async function widgetMake() {
     widgetTypeChartValue = widgetTypeChart?.value;
   }
 
-  let t = vscode.window.createTerminal();
   const command = `php artisan make:filament-widget ${widgetName} --resource=${resourceName} ${widgetType} --panel=${panelName}`;
-
-  t.sendText(command);
+  execCmd(command);
 }

@@ -13,20 +13,20 @@ export function activate(context: vscode.ExtensionContext) {
     customPagesMake();
   });
 
+  vscode.commands.registerCommand("make.relation.manager", async () => {
+    relationManagersMake();
+  });
+
   vscode.commands.registerCommand("make.resource", async () => {
-    filamentMake("resource");
+    filamentMake({ commandMaker: "resource", requiredPanelName: true });
   });
 
   vscode.commands.registerCommand("make.panel", async () => {
-    filamentMake("panel");
+    filamentMake({ commandMaker: "panel", requiredPanelName: false });
   });
 
   vscode.commands.registerCommand("make.theme", async () => {
-    filamentMake("theme");
-  });
-
-  vscode.commands.registerCommand("make.relation.manager", async () => {
-    relationManagersMake();
+    filamentMake({ commandMaker: "theme", requiredPanelName: false });
   });
 }
 

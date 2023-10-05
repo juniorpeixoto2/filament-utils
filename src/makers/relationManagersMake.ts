@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import execCmd from "../common";
 
 export default async function relationManagersMake() {
   const resourceName = await vscode.window.showInputBox({
@@ -6,7 +7,7 @@ export default async function relationManagersMake() {
     prompt: "Enter the Resource Name",
   });
 
-  if (resourceName === "") {
+  if (!resourceName) {
     vscode.window.showErrorMessage(
       "A Resource name is mandatory to execute this action"
     );
@@ -46,11 +47,6 @@ export default async function relationManagersMake() {
     panelName = "admin";
   }
 
-  let t = vscode.window.createTerminal();
   const command = `php artisan make:filament-relation-manager ${resourceName} ${relationshipName} ${attributeName} --panel=${panelName}`;
-
-  t.sendText(command);
-  vscode.window.showInformationMessage(
-    `Relation Manager ${relationshipName} Created!`
-  );
+  execCmd(command);
 }

@@ -1,12 +1,13 @@
 import * as vscode from "vscode";
+import execCmd from "../common";
 
 export default async function customPagesMake() {
-  const text = await vscode.window.showInputBox({
+  const name = await vscode.window.showInputBox({
     placeHolder: "Custom Page Name",
     prompt: "Enter the Custom Page Name",
   });
 
-  if (text === "") {
+  if (!name) {
     vscode.window.showErrorMessage(
       "A Name is mandatory to execute this action"
     );
@@ -50,13 +51,11 @@ export default async function customPagesMake() {
     panelName = "admin";
   }
 
-  if (text !== undefined) {
-    let t = vscode.window.createTerminal();
-    const command = `php artisan make:filament-page ${text} --resource="${resourceName}" ${
+  if (name !== undefined) {
+    const command = `php artisan make:filament-page ${name} --resource="${resourceName}" ${
       resourceName !== "" ? `--type=${pageType?.value}` : ""
     } --panel=${panelName}`;
 
-    t.sendText(command);
-    vscode.window.showInformationMessage(`Page ${text} Created!`);
+    execCmd(command);
   }
 }
